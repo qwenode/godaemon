@@ -83,7 +83,7 @@ func fork() {
 		Env:   os.Environ(),
 		Files: []uintptr{os.Stdin.Fd(), os.Stdout.Fd(), os.Stderr.Fd()},
 	}
-	pid, err := syscall.ForkExec(os.Args[0], os.Args, procAttr)
+	pid, err := syscall.ForkExec(os.Args[0], os.Args[:len(os.Arg)-1], procAttr)
 	if err != nil {
 		log.Printf("start err: %v", err)
 	}
