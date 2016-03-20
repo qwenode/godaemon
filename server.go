@@ -66,6 +66,7 @@ func init() {
 			if !isRunning() {
 				log.Printf("%s not running\n", appName)
 			} else {
+
 				syscall.Kill(pidVal, syscall.SIGTERM) //kill
 			}
 		case "-h":
@@ -127,6 +128,7 @@ func handleSignals() {
 		case syscall.SIGINT:
 			fallthrough
 		case syscall.SIGTERM:
+			log.Printf("[%d] %s stop graceful", os.Getpid(), appName)
 			if srv != nil {
 				srv.shutdown()
 			} else {
@@ -257,7 +259,7 @@ func (this *server) fork() error {
 		return err
 	}
 	savePid(pid)
-	log.Printf("[%d] %s restart ok\n", pid, appName)
+	log.Printf("[%d] %s fork ok\n", pid, appName)
 	return nil
 }
 
@@ -266,4 +268,5 @@ func (this *server) shutdown() {
 	this.SetKeepAlivesEnabled(false)
 	this.cm.close(TimeDeadLine)
 	this.listener.Close()
+	log.Printf("[%d] %s stopped.", os.Getpid(), appName)
 }
