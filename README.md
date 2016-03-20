@@ -3,7 +3,7 @@
 
 ## 使用方法
 
-1. 只增加daemon功能
+- 只增加daemon功能
 
 要让你的应用支持daemon很简单，只需导入godaemon包即可，无需再调用任何方法
 
@@ -21,7 +21,7 @@ func main(){
 }
 ```
 
-2. 增加graceful
+- 增加graceful
 
 ```
 package main
@@ -31,7 +31,7 @@ import(
 func main(){
 	mux1 := http.NewServeMux()
 	mux1.HandleFunc("/", handler)
-    daemon.GracefulServe(":8080", mux1)
+    godaemon.GracefulServe(":8080", mux1)
 }
 
 func handler(w http.ResponseWriter, r *http.Request){
