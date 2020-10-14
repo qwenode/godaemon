@@ -97,7 +97,7 @@ func isRunning() bool {
 
 //保存pid
 func savePid(pid int) error {
-	file, err := os.OpenFile(pidFile, os.O_CREATE|os.O_WRONLY, os.ModePerm)
+	file, err := os.OpenFile(pidFile, os.O_CREATE|os.O_WRONLY|os.O_TRUNC, os.ModePerm)
 	if err != nil {
 		return err
 	}
